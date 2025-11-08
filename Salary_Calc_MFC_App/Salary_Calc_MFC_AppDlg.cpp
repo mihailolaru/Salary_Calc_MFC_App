@@ -1,4 +1,3 @@
-
 // Salary_Calc_MFC_AppDlg.cpp : implementation file
 //
 
@@ -161,5 +160,21 @@ HCURSOR CSalaryCalcMFCAppDlg::OnQueryDragIcon()
 
 void CSalaryCalcMFCAppDlg::OnBnClickedButton1()
 {
-	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+
+    // Parse brutto
+    CString brutStr = v_edit_brut_s;
+    brutStr.Replace(L',', L'.');
+	// convert chat to double
+    const double brut = _wtof(brutStr);
+
+    CString medLabel, incomeLabel;
+
+    const double medPercent = 9;
+    const double incomePercent = 12;
+
+    const double net = brut - brut * (medPercent + incomePercent) / 100.0;
+    v_edit_net_salary.Format(L"%.2f", net);
+
+    UpdateData(FALSE);
 }
